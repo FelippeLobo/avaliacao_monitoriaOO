@@ -35,10 +35,12 @@ public class VerificarHistoricoActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         JTable tableUpdate = new JTable();
-        this.view.getMenuViewBuilder().getHistoricoTableJPanel().removeAll();
-        TableColumnModel columnModel = this.view.getMenuViewBuilder().getHistoricoJTable().getColumnModel();
 
-        DefaultTableModel tableModel = new DefaultTableModel();
+        Vector<String> colunas = new Vector<>();
+        colunas.add("Nome Disciplina");
+        colunas.add("Codigo");
+        colunas.add("Nota");
+        colunas.add("Situação");
 
         float nota = 0;
         Vector<Vector> linhas = new Vector<>();
@@ -54,15 +56,16 @@ public class VerificarHistoricoActionListener implements ActionListener {
                 } else {
                     linha.add("REPROVADO");
                 }
-                tableModel.addRow(linha);
+                linhas.add(linha);
 
             }
 
-            tableUpdate.setColumnModel(columnModel);
+            DefaultTableModel tableModel = new DefaultTableModel(linhas, colunas);
             tableUpdate.setModel(tableModel);
-            tableUpdate.setVisible(true);
+  
 
-            this.view.getMenuViewBuilder().setHistoricoJTable(new JTable(tableModel, columnModel));
+            this.view.getMenuViewBuilder().getHistoricoTableJPanel().removeAll();
+            this.view.getMenuViewBuilder().setHistoricoJTable(tableUpdate);
             JScrollPane scrollPane = new JScrollPane(this.view.getMenuViewBuilder().getHistoricoJTable());
             this.view.getMenuViewBuilder().getHistoricoTableJPanel().add(scrollPane, BorderLayout.CENTER);
             this.view.getMenuViewBuilder().getHistoricoTableJPanel().setPreferredSize(new Dimension(this.view.getMenuViewBuilder().getLargura_monitor(), this.view.getMenuViewBuilder().getAltura_monitor() - 45));

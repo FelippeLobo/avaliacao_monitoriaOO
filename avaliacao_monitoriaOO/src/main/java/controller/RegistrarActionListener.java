@@ -42,7 +42,7 @@ public class RegistrarActionListener implements ActionListener {
         int ID = view.getUsuarios().size() + 1;
         if (tipoUsuario.equals("Aluno")) {
 
-            Aluno novoAluno = new Aluno(nome, cpf, login, nome, email, ID);
+            Aluno novoAluno = new Aluno(nome, cpf, login, senha, email, ID);
             view.getDepartamento().getAlunos().add(novoAluno);
 
         } else if (tipoUsuario.equals("Professor")) {
