@@ -28,7 +28,7 @@ import javax.swing.JTextField;
  *
  * @author felip
  */
-public class LoginView extends JFrame {
+public class LoginViewBuilder {
 
     private JPanel loginJpanel;
     private JTextField loginJTextField;
@@ -39,7 +39,7 @@ public class LoginView extends JFrame {
     private int largura_monitor;
     private int altura_monitor;
 
-    public LoginView() throws IOException {
+    public LoginViewBuilder() throws IOException {
 
         this.largura_monitor = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         this.altura_monitor = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -67,9 +67,9 @@ public class LoginView extends JFrame {
         Component boxTopo = Box.createRigidArea(new Dimension(getLargura_monitor(), (int) (getAltura_monitor() / 6.5)));
         Component boxSolo = Box.createRigidArea(new Dimension(getLargura_monitor(), (int) (getAltura_monitor() / 2.5)));
 
-        loginJpanel.add(boxTopo);
-        loginJpanel.add(conteiner);
-        loginJpanel.add(boxSolo);
+        this.loginJpanel.add(boxTopo);
+        this.loginJpanel.add(conteiner);
+        this.loginJpanel.add(boxSolo);
 
     }
 

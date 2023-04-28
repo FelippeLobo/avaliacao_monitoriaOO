@@ -16,19 +16,17 @@ import view.View;
 public class AlterarTelaActionListener implements ActionListener {
 
     private View jframe;
-    private String janelaAtual;
     private String proximaJanela;
 
-    public AlterarTelaActionListener(View jframe, String janelaAtual, String proximaJanela) {
+    public AlterarTelaActionListener(View jframe, String proximaJanela) {
         this.jframe = jframe;
-        this.janelaAtual = janelaAtual;
         this.proximaJanela = proximaJanela;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("ENTREI");
-        jframe.alterarJanela(this.janelaAtual, this.proximaJanela);
+        
+        jframe.alterarJanela(this.proximaJanela);
 
     }
 

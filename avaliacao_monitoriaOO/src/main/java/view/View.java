@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.*;
@@ -28,7 +30,8 @@ import javax.swing.*;
 public class View extends JFrame {
 
     private Map<String, JPanel> janelas;
-    private LoginView loginView;
+    private LoginViewBuilder loginViewBuilder;
+    private RegistroViewBuilder registrarViewBuilder;
     private JPanel janelaAtual;
 
     private int largura_monitor;
@@ -38,52 +41,50 @@ public class View extends JFrame {
         this.janelas = new HashMap<>();
         List<String> janelasChave = new ArrayList<>();
 
-        janelasChave.add("Login");
-        janelasChave.add("Registrar");
-
-        for (String janela : janelasChave) {
-            this.janelas.put(janela, new JPanel());
-        }
-
-        janelaAtual = janelas.get("Login");
-        janelaAtual.setLayout(new BoxLayout(janelaAtual, BoxLayout.Y_AXIS));
-        janelaAtual.setAlignmentY(CENTER_ALIGNMENT);
-        this.setContentPane(this.janelaAtual);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        Dimension tamJanela = this.getContentPane().getSize();
         this.largura_monitor = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         this.altura_monitor = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
         pintarPainelLogin();
+        pintarPainelRegistro();
+        actionListernerAlterarTela();
+
+        this.janelaAtual = janelas.get("Login");
+
+        this.setContentPane(this.janelaAtual);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.setSize(largura_monitor, altura_monitor);
         this.setVisible(true);
     }
-    public void actionListernerAlterarTela(){
-        this.loginView.getRegistrarJButton().addActionListener(new AlterarTelaActionListener(this, "Login", "Registrar"));
+
+    public void actionListernerAlterarTela() {
+        this.loginViewBuilder.getRegistrarJButton().addActionListener(new AlterarTelaActionListener(this, "Registro"));
+
+        this.registrarViewBuilder.getVoltarJButton().addActionListener(new AlterarTelaActionListener(this, "Login"));
     }
-    public void alterarJanela(String janelaAtual, String proximaJanela) {
-        this.janelas.put("janelaAtual", this.janelaAtual);
+
+    public void alterarJanela(String proximaJanela) {
+        this.setVisible(false);
+
         this.janelaAtual = this.janelas.get(proximaJanela);
 
-        this.getContentPane().removeAll();
-        this.getContentPane().add(this.janelaAtual);
+        this.setContentPane(this.janelaAtual);
+
+        this.setVisible(true);
+    }
+
+    public void pintarPainelRegistro() {
+
+        this.registrarViewBuilder = new RegistroViewBuilder();
+        this.janelas.put("Registro", this.registrarViewBuilder.getRegistroJPanel());
 
     }
-    
-    public void pintarPainelRegistro(){
-        
 
-    }
     public void pintarPainelLogin() throws IOException {
 
-        this.loginView = new LoginView();
-
-        this.janelaAtual.add(loginView.getLoginJpanel());
+        this.loginViewBuilder = new LoginViewBuilder();
+        this.janelas.put("Login", this.loginViewBuilder.getLoginJpanel());
     }
-
-    
 
     public static void main(String[] args) throws IOException {
         View view = new View();
