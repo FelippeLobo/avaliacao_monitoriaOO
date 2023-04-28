@@ -4,10 +4,10 @@
  */
 package model.usuarios;
 
+import java.util.ArrayList;
 import java.util.List;
 import model.Disciplina;
 import model.Historico;
-import model.Projeto;
 
 /**
  *
@@ -15,28 +15,28 @@ import model.Projeto;
  */
 public class Aluno extends Usuario {
 
-    private String matricula;
-    private List<Projeto> projetos_participando;
     private List<Disciplina> disciplinas_cursadas;
     private Historico historico;
     private String curso;
 
-    public Aluno(String nome, String CPF, String login, String password, String email) {
-        super(nome, CPF, login, password, email);
+    public Aluno(String nome, String CPF, String login, String password, String email, int ID) {
+        super(nome, CPF, login, password, email, ID);
+        this.gerarMatricula();
+        this.disciplinas_cursadas = new ArrayList<>();
     }
 
-    /**
-     * @return the matricula
-     */
-    public String getMatricula() {
-        return matricula;
+    public Aluno() {
+        super();
+        this.disciplinas_cursadas = new ArrayList<>();
     }
 
-    /**
-     * @param matricula the matricula to set
-     */
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+    @Override
+    public void gerarMatricula() {
+        this.setMatricula("2023" + this.getID() + "65C");
+    }
+
+    public void gerarHistorico() {
+        this.historico = new Historico(this);
     }
 
     /**
@@ -81,18 +81,8 @@ public class Aluno extends Usuario {
         this.curso = curso;
     }
 
-    /**
-     * @return the projetos_participando
-     */
-    public List<Projeto> getProjetos_participando() {
-        return projetos_participando;
+    @Override
+    public String toString() {
+        return "Nome:" + this.getNome() + "||Matricula:" + this.getMatricula();
     }
-
-    /**
-     * @param projetos_participando the projetos_participando to set
-     */
-    public void setProjetos_participando(List<Projeto> projetos_participando) {
-        this.projetos_participando = projetos_participando;
-    }
-
 }

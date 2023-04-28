@@ -8,21 +8,29 @@ package model.usuarios;
  *
  * @author felip
  */
-class Usuario {
+public abstract class Usuario {
 
     private String nome;
     private String CPF;
     private String login;
     private String password;
     private String email;
+    private String matricula;
+    private int ID;
     
-    Usuario(String nome, String CPF, String login, String password, String email){
+    Usuario(){}
+    
+    Usuario(String nome, String CPF, String login, String password, String email, int ID) {
         this.nome = nome;
         this.CPF = CPF;
         this.login = login;
         this.password = password;
         this.email = email;
+        this.ID = ID;
     }
+    
+    protected abstract void gerarMatricula();
+    
     /**
      * @return the nome
      */
@@ -33,21 +41,21 @@ class Usuario {
     /**
      * @param nome the nome to set
      */
-    public void setNome(String nome) {
+    protected void setNome(String nome) {
         this.nome = nome;
     }
 
     /**
      * @return the CPF
      */
-    public String getCPF() {
+    protected String getCPF() {
         return CPF;
     }
 
     /**
      * @param CPF the CPF to set
      */
-    public void setCPF(String CPF) {
+    protected void setCPF(String CPF) {
         this.CPF = CPF;
     }
 
@@ -61,15 +69,32 @@ class Usuario {
     /**
      * @param login the login to set
      */
-    public void setLogin(String login) {
+    protected void setLogin(String login) {
         this.login = login;
     }
 
     /**
      * @param password the password to set
      */
-    public void setPassword(String password) {
+    protected void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean verificaSenha(char[] password) {
+
+        char[] senha = this.password.toCharArray();
+
+        if (password.length == senha.length) {
+            for (int i = 0; i < password.length; i++) {
+                if(senha[i] != password[i]){
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+        
+        return false;
     }
 
     /**
@@ -82,8 +107,38 @@ class Usuario {
     /**
      * @param email the email to set
      */
-    public void setEmail(String email) {
+    protected void setEmail(String email) {
         this.email = email;
     }
+
+    /**
+     * @return the matricula
+     */
+    public String getMatricula() {
+        return matricula;
+    }
+
+    /**
+     * @param matricula the matricula to set
+     */
+    protected void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    /**
+     * @return the ID
+     */
+    protected int getID() {
+        return ID;
+    }
+
+    /**
+     * @param ID the ID to set
+     */
+    protected void setID(int ID) {
+        this.ID = ID;
+    }
+    
+    
 
 }

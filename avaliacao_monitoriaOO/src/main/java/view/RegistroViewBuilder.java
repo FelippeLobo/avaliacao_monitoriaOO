@@ -71,9 +71,10 @@ public class RegistroViewBuilder {
         Component boxSolo = Box.createRigidArea(new Dimension(this.getLargura_monitor(), (int) (this.getAltura_monitor() / 5.5)));
 
         conteiner.add(this.getTituloRegistrar());
-        conteiner.add(linhaLoginSenha);
+        
         conteiner.add(linhaNomeCPF);
         conteiner.add(linhaEmail);
+        conteiner.add(linhaLoginSenha);
         conteiner.add(linhaBotoes);
 
         this.registroJPanel.add(boxTopo);

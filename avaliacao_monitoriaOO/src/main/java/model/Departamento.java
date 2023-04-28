@@ -5,6 +5,8 @@
 package model;
 
 import java.util.List;
+import java.util.Map;
+import model.usuarios.Aluno;
 import model.usuarios.Professor;
 
 /**
@@ -15,10 +17,18 @@ public class Departamento {
 
     private String nome;
     private List<Professor> professores;
-    private List<String> areas_de_pesquisa;
     private List<Disciplina> disciplinas_ofertadas;
-    private List<Projeto> projetos_ofertados;
+    private List<Aluno> alunos;
     private Professor chefe_departamental;
+
+    public Departamento(String nome, List<Aluno> alunos, List<Professor> professores, List<Disciplina> disciplinas_ofertadas, Professor chefe_departamental) {
+        this.nome = nome;
+        this.professores = professores;
+        this.alunos = alunos;
+        this.disciplinas_ofertadas = disciplinas_ofertadas;
+        this.chefe_departamental = chefe_departamental;
+        this.chefe_departamental.setIsChefe(true);
+    }
 
     /**
      * @return the nome
@@ -49,20 +59,6 @@ public class Departamento {
     }
 
     /**
-     * @return the areas_de_pesquisa
-     */
-    public List<String> getAreas_de_pesquisa() {
-        return areas_de_pesquisa;
-    }
-
-    /**
-     * @param areas_de_pesquisa the areas_de_pesquisa to set
-     */
-    public void setAreas_de_pesquisa(List<String> areas_de_pesquisa) {
-        this.areas_de_pesquisa = areas_de_pesquisa;
-    }
-
-    /**
      * @return the disciplinas_ofertadas
      */
     public List<Disciplina> getDisciplinas_ofertadas() {
@@ -77,20 +73,6 @@ public class Departamento {
     }
 
     /**
-     * @return the projetos_ofertados
-     */
-    public List<Projeto> getProjetos_ofertados() {
-        return projetos_ofertados;
-    }
-
-    /**
-     * @param projetos_ofertados the projetos_ofertados to set
-     */
-    public void setProjetos_ofertados(List<Projeto> projetos_ofertados) {
-        this.projetos_ofertados = projetos_ofertados;
-    }
-
-    /**
      * @return the chefe_departamental
      */
     public Professor getChefe_departamental() {
@@ -102,6 +84,20 @@ public class Departamento {
      */
     public void setChefe_departamental(Professor chefe_departamental) {
         this.chefe_departamental = chefe_departamental;
+    }
+
+    /**
+     * @return the alunos
+     */
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    /**
+     * @param alunos the alunos to set
+     */
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
     }
 
 }

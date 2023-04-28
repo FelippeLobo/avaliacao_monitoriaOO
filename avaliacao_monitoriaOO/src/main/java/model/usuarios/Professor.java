@@ -4,41 +4,31 @@
  */
 package model.usuarios;
 
+import java.util.ArrayList;
 import model.usuarios.Usuario;
 import java.util.List;
 import model.Departamento;
 import model.Disciplina;
-import model.Projeto;
 
 /**
  *
  * @author felip
  */
-public class Professor extends Usuario{
-    
-    private String matricula;
+public class Professor extends Usuario {
+
     private List<Disciplina> disciplinas_ministradas;
     private Departamento departamento;
-    private List<String> areas_de_interesse;
-    private List<Projeto> projetos_participando;
     private boolean isChefe;
-    
-    public Professor(String nome, String CPF, String login, String password, String email) {
-        super(nome, CPF, login, password, email);
+
+    public Professor(String nome, String CPF, String login, String password, String email, int ID) {
+        super(nome, CPF, login, password, email, ID);
+        this.gerarMatricula();
+        this.disciplinas_ministradas = new ArrayList<>();
     }
 
-    /**
-     * @return the matricula
-     */
-    public String getMatricula() {
-        return matricula;
-    }
-
-    /**
-     * @param matricula the matricula to set
-     */
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+    @Override
+    public void gerarMatricula() {
+        this.setMatricula(this.getCPF() + "2023" + this.getID());
     }
 
     /**
@@ -69,35 +59,7 @@ public class Professor extends Usuario{
         this.departamento = departamento;
     }
 
-    /**
-     * @return the areas_de_interesse
-     */
-    public List<String> getAreas_de_interesse() {
-        return areas_de_interesse;
-    }
-
-    /**
-     * @param areas_de_interesse the areas_de_interesse to set
-     */
-    public void setAreas_de_interesse(List<String> areas_de_interesse) {
-        this.areas_de_interesse = areas_de_interesse;
-    }
-
-    /**
-     * @return the projetos_participando
-     */
-    public List<Projeto> getProjetos_participando() {
-        return projetos_participando;
-    }
-
-    /**
-     * @param projetos_participando the projetos_participando to set
-     */
-    public void setProjetos_participando(List<Projeto> projetos_participando) {
-        this.projetos_participando = projetos_participando;
-    }
-
-    /**
+     /**
      * @return the isChefe
      */
     public boolean isIsChefe() {
@@ -110,5 +72,5 @@ public class Professor extends Usuario{
     public void setIsChefe(boolean isChefe) {
         this.isChefe = isChefe;
     }
-    
+
 }
